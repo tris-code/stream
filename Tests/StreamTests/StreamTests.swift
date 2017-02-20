@@ -8,7 +8,6 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-import Test
 @testable import Stream
 
 class StreamTests: TestCase {
