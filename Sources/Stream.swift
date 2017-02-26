@@ -9,7 +9,10 @@
  */
 
 public enum StreamError: Error {
-    case noSpaceAvailable
+    case full
+    case eof
+    case notEnoughSpace
+    case insufficientData
 }
 
 public protocol Stream: InputStream, OutputStream {}
