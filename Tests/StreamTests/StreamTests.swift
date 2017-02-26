@@ -16,7 +16,7 @@ class StreamTests: TestCase {
             return count
         }
 
-        func write(from buffer: UnsafeRawPointer, count: Int) throws -> Int {
+        func write(_ bytes: UnsafeRawPointer, count: Int) throws -> Int {
             return count
         }
     }
@@ -28,7 +28,7 @@ class StreamTests: TestCase {
     }
 
     class TestOutputStream: OutputStream {
-        func write(from buffer: UnsafeRawPointer, count: Int) throws -> Int {
+        func write(_ bytes: UnsafeRawPointer, count: Int) throws -> Int {
             return count
         }
     }
@@ -36,9 +36,9 @@ class StreamTests: TestCase {
     func testStream() {
         let testStream  = TestStream()
         let stream = testStream as Stream
-        var buffer = [UInt8]()
-        assertNoThrow(try stream.read(to: &buffer, count: 0))
-        assertNoThrow(try stream.write(from: buffer, count: 0))
+        var bytes = [UInt8]()
+        assertNoThrow(try stream.read(to: &bytes, count: 0))
+        assertNoThrow(try stream.write(bytes, count: 0))
     }
 
     func testInputStream() {
@@ -51,8 +51,8 @@ class StreamTests: TestCase {
     func testOutputStream() {
         let testStream  = TestOutputStream()
         let outputStream = testStream as OutputStream
-        let buffer = [UInt8]()
-        assertNoThrow(try outputStream.write(from: buffer, count: 0))
+        let bytes = [UInt8]()
+        assertNoThrow(try outputStream.write(bytes, count: 0))
     }
 
     func testStreamType() {
