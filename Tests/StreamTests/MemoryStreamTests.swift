@@ -262,6 +262,18 @@ class MemoryStreamTests: TestCase {
         }
     }
 
+    func testBuffer() {
+        let stream = MemoryStream()
+        let data: [UInt8] = [1, 2, 3, 4]
+
+        assertNoThrow(try stream.write(data, count: 4))
+        assertEqual([1, 2, 3, 4], [UInt8](stream.buffer))
+
+        var buffer = [UInt8](repeating: 0, count: 1)
+        assertNoThrow(try stream.read(to: &buffer))
+        assertEqual([2, 3, 4], [UInt8](stream.buffer))
+    }
+
 
     static var allTests = [
         ("testMemoryStream", testMemoryStream),
@@ -282,5 +294,6 @@ class MemoryStreamTests: TestCase {
         ("testCapacityPiece", testCapacityPiece),
         ("testCapacityShift", testCapacityShift),
         ("testTrivial", testTrivial),
+        ("testBuffer", testBuffer),
     ]
 }
