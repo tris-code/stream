@@ -8,6 +8,11 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
+public enum StreamError: Error {
+    case readLessThenRequired
+    case writtenLessThenRequired
+}
+
 public protocol Stream: InputStream, OutputStream {}
 
 public protocol InputStream {
