@@ -32,7 +32,5 @@ extension OutputStream {
                 index += written
             }
         }
-
-        return total
     }
 }
