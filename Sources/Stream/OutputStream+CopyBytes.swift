@@ -9,8 +9,8 @@
  */
 
 extension OutputStream {
-    public func copyBytes<T: InputStream>(
-        from input: T,
+    public mutating func copyBytes<T: InputStream>(
+        from input: inout T,
         bufferSize: Int = 4096
     ) throws -> Int {
         var total = 0
