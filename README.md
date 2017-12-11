@@ -7,7 +7,7 @@ The Stream protocol requires only 2 methods: `read` and `write`. Conformance to 
 ## Package.swift
 
 ```swift
-.package(url: "https://github.com/tris-foundation/stream.git", from: "0.4.0")
+.package(url: "https://github.com/tris-foundation/stream.git", .branch("master"))
 ```
 
 ## Memo
