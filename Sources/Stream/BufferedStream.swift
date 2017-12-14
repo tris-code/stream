@@ -28,6 +28,10 @@ public class BufferedInputStream<T: InputStream>: InputStream {
         self.count = 0
     }
 
+    deinit {
+        storage.deallocate()
+    }
+
     @inline(__always)
     private func flush(to buffer: UnsafeMutableRawBufferPointer) -> Int {
         assert(buffer.count > buffered)
@@ -90,6 +94,10 @@ public class BufferedOutputStream<T: OutputStream>: OutputStream {
             byteCount: capacity,
             alignment: MemoryLayout<UInt>.alignment)
         buffered = 0
+    }
+
+    deinit {
+        storage.deallocate()
     }
 
     public func write(_ bytes: UnsafeRawBufferPointer) throws -> Int {
