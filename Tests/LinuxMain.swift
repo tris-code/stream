@@ -4,4 +4,5 @@ import XCTest
 XCTMain([
     testCase(StreamTests.allTests),
     testCase(BufferedStreamTests.allTests),
+    testCase(MemoryStreamTests.allTests),
 ])
