@@ -2,7 +2,8 @@ import XCTest
 @testable import StreamTests
 
 XCTMain([
-    testCase(StreamTests.allTests),
+    testCase(BufferedStreamReaderTests.allTests),
     testCase(BufferedStreamTests.allTests),
     testCase(MemoryStreamTests.allTests),
+    testCase(StreamTests.allTests)
 ])
