@@ -26,9 +26,9 @@ public class BufferedInputStream<T: InputStream> {
         }
     }
 
-    public var capacity: Int {
+    public var used: Int {
         @inline(__always) get {
-            return allocated
+            return storage.distance(to: writePosition)
         }
     }
 

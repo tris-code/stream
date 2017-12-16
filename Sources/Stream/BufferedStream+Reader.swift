@@ -48,7 +48,6 @@ extension BufferedInputStream: BufferedInputStreamReader {
 
     @_versioned
     func feed() throws -> Int {
-        let used = storage.distance(to: writePosition)
         guard used < allocated else {
             throw BufferError.notEnoughSpace
         }
@@ -129,7 +128,6 @@ extension BufferedInputStream: BufferedInputStreamReader {
 
     @_versioned
     func ensure(count requested: Int) throws {
-        let used = storage.distance(to: writePosition)
         guard used + requested > allocated else {
             return
         }
