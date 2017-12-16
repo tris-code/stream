@@ -43,19 +43,18 @@ extension BufferedInputStream: BufferedInputStreamReader {
         guard count <= self.count else {
             return nil
         }
-        return UnsafeRawBufferPointer(
-            start: storage.advanced(by: readPosition),
-            count: count)
+        return UnsafeRawBufferPointer(start: readPosition, count: count)
     }
 
     @_versioned
     func feed() throws -> Int {
-        guard writePosition < allocated else {
+        let used = storage.distance(to: writePosition)
+        guard used < allocated else {
             throw BufferError.notEnoughSpace
         }
         let read = try baseStream.read(
-            to: storage.advanced(by: writePosition),
-            byteCount: allocated - writePosition)
+            to: writePosition,
+            byteCount: allocated - used)
         writePosition += read
         return read
     }
@@ -75,9 +74,8 @@ extension BufferedInputStream: BufferedInputStreamReader {
                     return false
                 }
             }
-            let position = storage.advanced(by: readPosition)
-                .assumingMemoryBound(to: UInt8.self)
-            if !predicate(position.pointee) {
+            let byte = readPosition.assumingMemoryBound(to: UInt8.self)
+            if !predicate(byte.pointee) {
                 return true
             }
             readPosition += 1
@@ -105,9 +103,7 @@ extension BufferedInputStream: BufferedInputStreamReader {
         defer {
             readPosition += count
         }
-        return UnsafeRawBufferPointer(
-            start: storage.advanced(by: readPosition),
-            count: count)
+        return UnsafeRawBufferPointer(start: readPosition, count: count)
     }
 
     @_inlineable
@@ -120,22 +116,21 @@ extension BufferedInputStream: BufferedInputStreamReader {
                     return nil
                 }
             }
-            let position = storage.advanced(by: readPosition + count)
+            let byte = readPosition.advanced(by: count)
                 .assumingMemoryBound(to: UInt8.self)
-            if !predicate(position.pointee) {
+            if !predicate(byte.pointee) {
                 break
             }
             count += 1
         }
         defer { readPosition += count }
-        return UnsafeRawBufferPointer(
-            start: storage.advanced(by: readPosition),
-            count: count)
+        return UnsafeRawBufferPointer(start: readPosition, count: count)
     }
 
     @_versioned
     func ensure(count requested: Int) throws {
-        guard writePosition + requested > allocated else {
+        let used = storage.distance(to: writePosition)
+        guard used + requested > allocated else {
             return
         }
 
@@ -154,11 +149,9 @@ extension BufferedInputStream: BufferedInputStreamReader {
 
     func shift() {
         let count = self.count
-        storage.copyMemory(
-            from: storage.advanced(by: readPosition),
-            byteCount: count)
-        readPosition = 0
-        writePosition = count
+        storage.copyMemory(from: readPosition, byteCount: count)
+        readPosition = storage
+        writePosition = storage + count
     }
 
     func reallocate(byteCount: Int) {
@@ -166,13 +159,11 @@ extension BufferedInputStream: BufferedInputStreamReader {
         let storage = UnsafeMutableRawPointer.allocate(
             byteCount: byteCount,
             alignment: MemoryLayout<UInt>.alignment)
-        storage.copyMemory(
-            from: self.storage.advanced(by: readPosition),
-            byteCount: count)
+        storage.copyMemory(from: self.readPosition, byteCount: count)
         self.storage.deallocate()
         self.storage = storage
         self.allocated = byteCount
-        self.readPosition = 0
-        self.writePosition = count
+        self.readPosition = storage
+        self.writePosition = storage + count
     }
 }
