@@ -10,12 +10,8 @@
 
 extension InputStream {
     @inline(__always)
-    public func read(
-        to buffer: UnsafeMutableRawPointer, count: Int
-    ) throws -> Int {
-        return try read(to: UnsafeMutableRawBufferPointer(
-            start: buffer,
-            count: count))
+    public func read(to buffer: UnsafeMutableRawBufferPointer) throws -> Int {
+        return try read(to: buffer.baseAddress!, byteCount: buffer.count)
     }
 
     @inline(__always)
@@ -35,10 +31,8 @@ extension InputStream {
 
 extension OutputStream {
     @inline(__always)
-    public func write(
-        _ bytes: UnsafeRawPointer, count: Int
-    ) throws -> Int {
-        return try write(UnsafeRawBufferPointer(start: bytes, count: count))
+    public func write(_ bytes: UnsafeRawBufferPointer) throws -> Int {
+        return try write(bytes.baseAddress!, byteCount: bytes.count)
     }
 
     @inline(__always)
