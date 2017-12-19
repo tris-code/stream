@@ -27,7 +27,7 @@ extension OutputStream {
             while index < read {
                 let written = try write(buffer[index..<read])
                 guard written > 0 else {
-                    throw StreamError.writtenLessThenRequired
+                    throw StreamError.notEnoughSpace
                 }
                 index += written
             }
