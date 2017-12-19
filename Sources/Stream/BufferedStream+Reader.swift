@@ -11,7 +11,7 @@
 extension BufferedInputStream {
     @inline(__always)
     public func read(until byte: UInt8) throws -> UnsafeRawBufferPointer {
-        return try read(while: {$0 != byte})
+        return try read(while: { $0 != byte })
     }
 
     @inline(__always)
@@ -57,9 +57,7 @@ extension BufferedInputStream {
                 throw StreamError.insufficientData
             }
         }
-        defer {
-            readPosition += count
-        }
+        defer { readPosition += count }
         return UnsafeRawBufferPointer(start: readPosition, count: count)
     }
 
