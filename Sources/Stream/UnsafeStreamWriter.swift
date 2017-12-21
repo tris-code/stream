@@ -8,14 +8,7 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-extension BufferedOutputStream {
-    public func write(_ byte: UInt8) throws {
-        if available <= 0 {
-            try flush()
-        }
-        storage.advanced(by: buffered)
-            .assumingMemoryBound(to: UInt8.self)
-            .pointee = byte
-        buffered += 1
-    }
+protocol UnsafeStreamWriter: OutputStream {
+    var buffered: Int { get }
+    func write(_ byte: UInt8) throws
 }
