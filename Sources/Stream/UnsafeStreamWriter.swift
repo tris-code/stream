@@ -8,7 +8,7 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-protocol UnsafeStreamWriter: OutputStream {
+public protocol UnsafeStreamWriter: OutputStream {
     var buffered: Int { get }
     func write(_ byte: UInt8) throws
 }
