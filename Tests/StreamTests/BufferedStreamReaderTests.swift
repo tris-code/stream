@@ -41,7 +41,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testRead() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 1)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 1)
             assertEqual(input.expandable, true)
             assertEqual(input.allocated, 1)
 
@@ -97,7 +99,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testReadReservingCapacity() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 10)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 10)
             assertEqual(input.expandable, true)
             assertEqual(input.allocated, 10)
 
@@ -118,7 +122,9 @@ class BufferedStreamReaderTests: TestCase {
     func testReadFixedCapacity() {
         do {
             let input = BufferedInputStream(
-                baseStream: TestStream(), capacity: 10, expandable: false)
+                baseStream: TestStream(),
+                capacity: 10,
+                expandable: false)
             assertEqual(input.expandable, false)
             assertEqual(input.allocated, 10)
 
@@ -167,7 +173,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testReadWhile() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 5)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 5)
             assertEqual(input.expandable, true)
             assertEqual(input.allocated, 5)
 
@@ -201,7 +209,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testReadUntil() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 5)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 5)
             assertEqual(input.expandable, true)
             assertEqual(input.allocated, 5)
 
@@ -246,7 +256,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testConsume() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 10)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 10)
             assertEqual(input.readPosition, input.storage)
             assertEqual(input.writePosition, input.storage)
 
@@ -317,7 +329,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testConsumeWhile() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 2)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 2)
             assertEqual(input.readPosition, input.storage)
             assertEqual(input.writePosition, input.storage)
             assertEqual(input.allocated, 2)
@@ -346,7 +360,9 @@ class BufferedStreamReaderTests: TestCase {
 
     func testConsumeUntil() {
         do {
-            let input = BufferedInputStream(baseStream: TestStream(), capacity: 2)
+            let input = BufferedInputStream(
+                baseStream: TestStream(),
+                capacity: 2)
             assertEqual(input.readPosition, input.storage)
             assertEqual(input.writePosition, input.storage)
             assertEqual(input.allocated, 2)
