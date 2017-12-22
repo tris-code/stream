@@ -11,7 +11,7 @@
 public class InputByteStream: InputStream {
     public let bytes: [UInt8]
 
-    public private(set) var position = 0
+    public internal(set) var position = 0
 
     public init(_ bytes: [UInt8]) {
         self.bytes = bytes
