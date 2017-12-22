@@ -31,7 +31,8 @@ extension InputByteStream: UnsafeStreamReader {
         } catch {
             return nil
         }
-        return UnsafeRawBufferPointer(rebasing: buffer[position...])
+        let result = buffer[position..<position+count]
+        return UnsafeRawBufferPointer(rebasing: result)
     }
 
     public func read() throws -> UInt8 {
@@ -41,9 +42,10 @@ extension InputByteStream: UnsafeStreamReader {
     }
 
     public func read(count: Int) throws -> UnsafeRawBufferPointer {
-        try ensure(count: 1)
+        try ensure(count: count)
         defer { position += count }
-        return UnsafeRawBufferPointer(rebasing: buffer[position...])
+        let result = buffer[position..<position+count]
+        return UnsafeRawBufferPointer(rebasing: result)
     }
 
     public func read(
@@ -57,13 +59,12 @@ extension InputByteStream: UnsafeStreamReader {
                 if allowingExhaustion { break }
                 throw StreamError.insufficientData
             }
-            if !predicate(buffer[read]) {
+            if !predicate(buffer[position+read]) {
                 break
             }
             read += 1
         }
-        let result = buffer[position..<(position + read)]
-        position += read
+        let result = buffer[position..<(position+read)]
         return UnsafeRawBufferPointer(rebasing: result)
     }
 
@@ -86,7 +87,7 @@ extension InputByteStream: UnsafeStreamReader {
         allowingExhaustion: Bool
     ) throws {
         while true {
-            if position == buffered {
+            if position == bytes.count {
                 if allowingExhaustion { break }
                 throw StreamError.insufficientData
             }
