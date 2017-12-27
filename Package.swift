@@ -19,11 +19,12 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/tris-foundation/test.git",
-            .branch("master")
-        )
+            .branch("master"))
     ],
     targets: [
         .target(name: "Stream"),
-        .testTarget(name: "StreamTests", dependencies: ["Stream", "Test"])
+        .testTarget(
+            name: "StreamTests",
+            dependencies: ["Stream", "Test"])
     ]
 )
