@@ -36,6 +36,15 @@ extension BufferedStreamWriterTests {
     ]
 }
 
+extension ByteStreamTests {
+    static let __allTests = [
+        ("testCopyBytes", testCopyBytes),
+        ("testInputStream", testInputStream),
+        ("testNumeric", testNumeric),
+        ("testOutputStream", testOutputStream),
+    ]
+}
+
 extension MemoryStreamTests {
     static let __allTests = [
         ("testBuffer", testBuffer),
@@ -58,7 +67,6 @@ extension StreamTests {
     static let __allTests = [
         ("testCopyBytes", testCopyBytes),
         ("testInputStream", testInputStream),
-        ("testNumeric", testNumeric),
         ("testOutputStream", testOutputStream),
         ("testStream", testStream),
     ]
@@ -70,6 +78,7 @@ public func __allTests() -> [XCTestCaseEntry] {
         testCase(BufferedStreamReaderTests.__allTests),
         testCase(BufferedStreamTests.__allTests),
         testCase(BufferedStreamWriterTests.__allTests),
+        testCase(ByteStreamTests.__allTests),
         testCase(MemoryStreamTests.__allTests),
         testCase(StreamTests.__allTests),
     ]
