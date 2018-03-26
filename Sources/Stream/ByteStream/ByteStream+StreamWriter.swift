@@ -10,7 +10,7 @@
 
 // Convenience conformance
 
-extension OutputByteStream: UnsafeStreamWriter {
+extension OutputByteStream: StreamWriter {
     public var buffered: Int {
         return bytes.count - position
     }

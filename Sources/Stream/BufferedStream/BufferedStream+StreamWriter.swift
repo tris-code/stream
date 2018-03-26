@@ -8,7 +8,7 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-extension BufferedOutputStream: UnsafeStreamWriter {
+extension BufferedOutputStream: StreamWriter {
     public func write(_ byte: UInt8) throws {
         if available <= 0 {
             try flush()
