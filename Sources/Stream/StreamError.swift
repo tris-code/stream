@@ -8,4 +8,7 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-public protocol Stream: InputStream, OutputStream {}
+public enum StreamError: Error {
+    case notEnoughSpace
+    case insufficientData
+}

@@ -8,25 +8,8 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-extension InputStream {
-    @inline(__always)
-    public func read(to buffer: UnsafeMutableRawBufferPointer) throws -> Int {
-        return try read(to: buffer.baseAddress!, byteCount: buffer.count)
-    }
-
-    @inline(__always)
-    public func read(to buffer: inout ArraySlice<UInt8>) throws -> Int {
-        return try buffer.withUnsafeMutableBytes { buffer in
-            return try read(to: buffer)
-        }
-    }
-
-    @inline(__always)
-    public func read(to buffer: inout [UInt8]) throws -> Int {
-        return try buffer.withUnsafeMutableBytes { buffer in
-            return try read(to: buffer)
-        }
-    }
+public protocol OutputStream {
+    func write(_ bytes: UnsafeRawPointer, byteCount: Int) throws -> Int
 }
 
 extension OutputStream {
@@ -46,6 +29,34 @@ extension OutputStream {
     public func write(_ bytes: [UInt8]) throws -> Int {
         return try bytes.withUnsafeBytes { buffer in
             return try write(buffer)
+        }
+    }
+}
+
+extension OutputStream {
+    @_inlineable
+    public func copyBytes<T: InputStream>(
+        from input: inout T,
+        bufferSize: Int = 4096) throws -> Int
+    {
+        var total = 0
+        var buffer = [UInt8](repeating: 0, count: bufferSize)
+
+        while true {
+            let read = try input.read(to: &buffer)
+            guard read > 0 else {
+                return total
+            }
+            total = total &+ read
+
+            var index = 0
+            while index < read {
+                let written = try write(buffer[index..<read])
+                guard written > 0 else {
+                    throw StreamError.notEnoughSpace
+                }
+                index += written
+            }
         }
     }
 }
