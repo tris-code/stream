@@ -267,21 +267,4 @@ class MemoryStreamTests: TestCase {
         assertNoThrow(try stream.read(to: &buffer))
         assertEqual([1, 2, 3, 4], [UInt8](stream.buffer))
     }
-
-
-    static var allTests = [
-        ("testMemoryStream", testMemoryStream),
-        ("testInputStream", testInputStream),
-        ("testOutputStream", testOutputStream),
-        ("testInitialSize", testInitialSize),
-        ("testWriteEmpty", testWriteEmpty),
-        ("testReadEmpty", testReadEmpty),
-        ("testSeek", testSeek),
-        ("testWrite", testWrite),
-        ("testRead", testRead),
-        ("testReallocate", testReallocate),
-        ("testCapacity", testCapacity),
-        ("testTrivial", testTrivial),
-        ("testBuffer", testBuffer),
-    ]
 }

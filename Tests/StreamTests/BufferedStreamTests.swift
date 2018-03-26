@@ -139,14 +139,4 @@ class BufferedStreamTests: TestCase {
         assertEqual(stream.outputStream.allocated, 4096)
         assertEqual(stream.outputStream.buffered, 0)
     }
-
-
-    static var allTests = [
-        ("testBufferedInputStream", testBufferedInputStream),
-        ("testBufferedOutputStream", testBufferedOutputStream),
-        ("testBufferedStream", testBufferedStream),
-        ("testBufferedOutputStreamDefaultCapacity", testBufferedOutputStreamDefaultCapacity),
-        ("testBufferedInputStreamDefaultCapacity", testBufferedInputStreamDefaultCapacity),
-        ("testBufferedStreamDefaultCapacity", testBufferedStreamDefaultCapacity),
-    ]
 }

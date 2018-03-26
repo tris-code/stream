@@ -21,9 +21,4 @@ class BufferedStreamWriterTests: TestCase {
 
         assertEqual(stream.bytes, [42])
     }
-
-
-    static var allTests = [
-        ("testWriteByte", testWriteByte)
-    ]
 }

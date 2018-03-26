@@ -1,9 +1,8 @@
 import XCTest
-@testable import StreamTests
 
-XCTMain([
-    testCase(BufferedStreamReaderTests.allTests),
-    testCase(BufferedStreamTests.allTests),
-    testCase(MemoryStreamTests.allTests),
-    testCase(StreamTests.allTests)
-])
+import StreamTests
+
+var tests = [XCTestCaseEntry]()
+tests += StreamTests.__allTests()
+
+XCTMain(tests)

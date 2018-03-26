@@ -76,13 +76,4 @@ class StreamTests: TestCase {
             fail(String(describing: error))
         }
     }
-
-
-    static var allTests = [
-        ("testStream", testStream),
-        ("testInputStream", testInputStream),
-        ("testOutputStream", testOutputStream),
-        ("testNumeric", testNumeric),
-        ("testCopyBytes", testCopyBytes),
-    ]
 }

@@ -395,22 +395,4 @@ class BufferedStreamReaderTests: TestCase {
             fail(String(describing: error))
         }
     }
-
-
-    static var allTests = [
-        ("testRead", testRead),
-        ("testReadReservingCapacity", testReadReservingCapacity),
-        ("testReadFixedCapacity", testReadFixedCapacity),
-        ("testReadByte", testReadByte),
-        ("testReadWhile", testReadWhile),
-        ("testReadWhileAllowingExhaustion", testReadWhileAllowingExhaustion),
-        ("testReadUntil", testReadUntil),
-        ("testPeek", testPeek),
-        ("testConsume", testConsume),
-        ("testConsumeNotExpandable", testConsumeNotExpandable),
-        ("testConsumeByte", testConsumeByte),
-        ("testConsumeWhile", testConsumeWhile),
-        ("testConsumeUntil", testConsumeUntil),
-        ("testFeedLessThanReadCount", testFeedLessThanReadCount)
-    ]
 }
