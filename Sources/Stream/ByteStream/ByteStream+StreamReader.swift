@@ -15,17 +15,43 @@ extension InputByteStream: StreamReader {
         return bytes.count - position
     }
 
+    @inline(__always)
     func ensure(count: Int) throws {
         guard buffered >= count else {
             throw StreamError.insufficientData
         }
     }
 
+    @inline(__always)
+    func advance(by count: Int) {
+        position += count
+    }
+
+    public func read(_ type: UInt8.Type) throws -> UInt8 {
+        try ensure(count: 1)
+        defer { advance(by: 1) }
+        return bytes[position]
+    }
+
+    public func read<T: BinaryInteger>(_ type: T.Type) throws -> T {
+        let count = MemoryLayout<T>.size
+        try ensure(count: count)
+        defer { advance(by: count) }
+        var result: T = 0
+        var slice = bytes[position..<position+count]
+        withUnsafeMutableBytes(of: &result) { buffer in
+            withUnsafeBytes(of: &slice) { bytes in
+                buffer.copyMemory(from: bytes)
+            }
+        }
+        return result
+    }
+
     private func _read(count: Int) throws -> ArraySlice<UInt8> {
         try ensure(count: count)
-        defer { position += count }
+        defer { advance(by: count) }
         return bytes[position..<position+count]
-    }   
+    }
 
     public func read(count: Int) throws -> [UInt8] {
         return [UInt8](try _read(count: count))
@@ -46,7 +72,7 @@ extension InputByteStream: StreamReader {
         allowingExhaustion: Bool) throws -> ArraySlice<UInt8>
     {
         var read = 0
-        defer { position += read }
+        defer { advance(by: read) }
         while true {
             if read == buffered {
                 if allowingExhaustion { break }
@@ -85,7 +111,7 @@ extension InputByteStream: StreamReader {
 
     public func consume(count: Int) throws {
         try ensure(count: count)
-        position += count
+        advance(by: count)
     }
 
     public func consume(_ byte: UInt8) throws -> Bool {
@@ -93,7 +119,7 @@ extension InputByteStream: StreamReader {
         guard bytes[position] == byte else {
             return false
         }
-        position += 1
+        advance(by: 1)
         return true
     }
 
@@ -109,7 +135,7 @@ extension InputByteStream: StreamReader {
             if !predicate(bytes[position]) {
                 break
             }
-            position += 1
+            advance(by: 1)
         }
     }
 
