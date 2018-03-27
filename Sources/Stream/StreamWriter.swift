@@ -14,6 +14,7 @@ public protocol StreamWriter: class {
     func write<T: BinaryInteger>(_ value: T) throws
     func write(_ bytes: [UInt8]) throws
     func write(_ bytes: UnsafeRawPointer, byteCount: Int) throws
+    func flush() throws
 }
 
 extension StreamWriter {

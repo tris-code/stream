@@ -36,4 +36,8 @@ extension OutputByteStream: StreamWriter {
             written += count
         }
     }
+
+    public func flush() throws {
+        // nop
+    }
 }

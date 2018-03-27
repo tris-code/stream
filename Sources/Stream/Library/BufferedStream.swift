@@ -183,8 +183,7 @@ extension BufferedOutputStream: OutputStream {
         }
     }
 
-    @discardableResult
-    public func flush() throws -> Int {
+    public func flush() throws {
         var sent = 0
         while sent < buffered {
             sent += try baseStream.write(
@@ -192,7 +191,6 @@ extension BufferedOutputStream: OutputStream {
                 byteCount: buffered - sent)
         }
         buffered = 0
-        return sent
     }
 }
 
