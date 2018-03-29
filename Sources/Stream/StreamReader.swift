@@ -8,16 +8,6 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-public protocol StreamReadable {
-    init(from stream: StreamReader) throws
-}
-
-extension StreamReader {
-    func read<T: StreamReadable>() throws -> T {
-        return try T(from: self)
-    }
-}
-
 public enum PredicateMode {
     case strict
     case untilEnd
