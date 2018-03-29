@@ -92,8 +92,8 @@ extension BufferedInputStream {
 
     @_inlineable
     public func read<T>(
-        while predicate: (UInt8) -> Bool,
         untilEnd: Bool,
+        while predicate: (UInt8) -> Bool,
         body: (UnsafeRawBufferPointer) throws -> T) throws -> T
     {
         var read = 0
@@ -164,8 +164,8 @@ extension BufferedInputStream {
 
     @_inlineable
     public func consume(
-        while predicate: (UInt8) -> Bool,
-        untilEnd: Bool = true) throws
+        untilEnd: Bool = true,
+        while predicate: (UInt8) -> Bool) throws
     {
         while true {
             if buffered == 0 {

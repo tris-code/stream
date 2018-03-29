@@ -47,8 +47,8 @@ extension StreamReader {
     {
         let buffer = allowedBytes.buffer
         return try read(
-            while: { buffer[Int($0)] },
             untilEnd: true,
+            while: { buffer[Int($0)] },
             body: body)
     }
 

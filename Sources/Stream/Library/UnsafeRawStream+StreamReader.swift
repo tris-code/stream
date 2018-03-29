@@ -77,8 +77,8 @@ extension UnsafeRawInputStream: StreamReader {
     }
 
     public func read<T>(
-        while predicate: (UInt8) -> Bool,
         untilEnd: Bool,
+        while predicate: (UInt8) -> Bool,
         body: (UnsafeRawBufferPointer) throws -> T) throws -> T
     {
         var read = 0
@@ -112,8 +112,8 @@ extension UnsafeRawInputStream: StreamReader {
     }
 
     public func consume(
-        while predicate: (UInt8) -> Bool,
-        untilEnd: Bool) throws
+        untilEnd: Bool,
+        while predicate: (UInt8) -> Bool) throws
     {
         while true {
             if position == bytes.count {
