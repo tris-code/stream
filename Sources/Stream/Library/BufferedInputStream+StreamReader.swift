@@ -8,9 +8,7 @@
  * See CONTRIBUTORS.txt for the list of the project authors
  */
 
-extension BufferedInputStream: StreamReader {}
-
-extension BufferedInputStream {
+extension BufferedInputStream: StreamReader {
     public func cache(count: Int) throws -> Bool {
         if count > buffered {
             try ensure(count: count)
