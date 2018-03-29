@@ -38,7 +38,7 @@ public protocol StreamReader: class {
 
     func read<T>(
         while predicate: (UInt8) -> Bool,
-        allowingExhaustion: Bool,
+        untilEnd: Bool,
         body: (UnsafeRawBufferPointer) throws -> T
     ) throws -> T
 
@@ -48,7 +48,7 @@ public protocol StreamReader: class {
 
     func consume(
         while predicate: (UInt8) -> Bool,
-        allowingExhaustion: Bool
+        untilEnd: Bool
     ) throws
 }
 
@@ -71,7 +71,7 @@ extension StreamReader {
     {
         return try read(
             while: predicate,
-            allowingExhaustion: true,
+            untilEnd: true,
             body: body)
     }
 
@@ -82,7 +82,7 @@ extension StreamReader {
     {
         return try read(
             while: { $0 != byte },
-            allowingExhaustion: false,
+            untilEnd: false,
             body: body)
     }
 }
@@ -104,22 +104,22 @@ extension StreamReader {
 
     @inline(__always)
     public func read(while predicate: (UInt8) -> Bool) throws -> [UInt8] {
-        return try read(while: predicate, allowingExhaustion: true)
+        return try read(while: predicate, untilEnd: true)
     }
 
     @inline(__always)
     public func read(until byte: UInt8) throws -> [UInt8] {
-        return try read(while: { $0 != byte }, allowingExhaustion: false)
+        return try read(while: { $0 != byte }, untilEnd: false)
     }
 
     @inline(__always)
     public func consume(while predicate: (UInt8) -> Bool) throws {
-        try consume(while: predicate, allowingExhaustion: true)
+        try consume(while: predicate, untilEnd: true)
     }
 
     @inline(__always)
     public func consume(until byte: UInt8) throws {
-        try consume(while: { $0 != byte }, allowingExhaustion: false)
+        try consume(while: { $0 != byte }, untilEnd: false)
     }
 
     @_inlineable

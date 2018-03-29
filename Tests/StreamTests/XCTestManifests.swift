@@ -15,7 +15,7 @@ extension BufferedStreamReaderTests {
         ("testReadReservingCapacity", testReadReservingCapacity),
         ("testReadUntil", testReadUntil),
         ("testReadWhile", testReadWhile),
-        ("testReadWhileAllowingExhaustion", testReadWhileAllowingExhaustion),
+        ("testReadWhileUntilEnd", testReadWhileUntilEnd),
     ]
 }
 
