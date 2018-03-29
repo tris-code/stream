@@ -2,6 +2,7 @@ import XCTest
 
 extension BufferedStreamReaderTests {
     static let __allTests = [
+        ("testAdvancePositionBeforeCallback", testAdvancePositionBeforeCallback),
         ("testConsume", testConsume),
         ("testConsumeByte", testConsumeByte),
         ("testConsumeNotExpandable", testConsumeNotExpandable),
@@ -38,6 +39,7 @@ extension BufferedStreamWriterTests {
 
 extension ByteStreamTests {
     static let __allTests = [
+        ("testAdvancePositionBeforeCallback", testAdvancePositionBeforeCallback),
         ("testCopyBytes", testCopyBytes),
         ("testInputStream", testInputStream),
         ("testNumeric", testNumeric),
@@ -63,6 +65,14 @@ extension MemoryStreamTests {
     ]
 }
 
+extension StreamReaderTests {
+    static let __allTests = [
+        ("testReadLine", testReadLine),
+        ("testUntilEnd", testUntilEnd),
+        ("testUntilEndAsString", testUntilEndAsString),
+    ]
+}
+
 extension StreamTests {
     static let __allTests = [
         ("testCopyBytes", testCopyBytes),
@@ -80,6 +90,7 @@ public func __allTests() -> [XCTestCaseEntry] {
         testCase(BufferedStreamWriterTests.__allTests),
         testCase(ByteStreamTests.__allTests),
         testCase(MemoryStreamTests.__allTests),
+        testCase(StreamReaderTests.__allTests),
         testCase(StreamTests.__allTests),
     ]
 }
