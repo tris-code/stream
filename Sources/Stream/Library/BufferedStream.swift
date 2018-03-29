@@ -142,6 +142,7 @@ public class BufferedOutputStream<T: OutputStream> {
     }
 
     deinit {
+        try? flush()
         storage.deallocate()
     }
 }
