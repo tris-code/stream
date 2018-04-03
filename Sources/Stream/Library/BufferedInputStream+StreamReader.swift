@@ -42,7 +42,7 @@ extension BufferedInputStream: StreamReader {
 }
 
 extension BufferedInputStream {
-    @_inlineable // optimized
+    @inlinable // optimized
     public func read(_ type: UInt8.Type) throws -> UInt8 {
         if buffered == 0 {
             guard try feed() else {
@@ -56,7 +56,7 @@ extension BufferedInputStream {
         return byte
     }
 
-    @_inlineable
+    @inlinable
     public func read<T: BinaryInteger>(_ type: T.Type) throws -> T {
         var result: T = 0
         try withUnsafeMutableBytes(of: &result) { pointer in
@@ -67,7 +67,7 @@ extension BufferedInputStream {
         return result
     }
 
-    @_inlineable
+    @inlinable
     public func read<T>(
         count: Int,
         body: (UnsafeRawBufferPointer) throws -> T) throws -> T
@@ -90,7 +90,7 @@ extension BufferedInputStream {
         return try body(buffer)
     }
 
-    @_inlineable
+    @inlinable
     public func read<T>(
         mode: PredicateMode,
         while predicate: (UInt8) -> Bool,
@@ -162,7 +162,7 @@ extension BufferedInputStream {
         return true
     }
 
-    @_inlineable
+    @inlinable
     public func consume(
         mode: PredicateMode,
         while predicate: (UInt8) -> Bool) throws
@@ -184,7 +184,7 @@ extension BufferedInputStream {
 }
 
 extension BufferedInputStream {
-    @_versioned
+    @usableFromInline
     func feed() throws -> Bool {
         guard used < allocated else {
             throw StreamError.notEnoughSpace
@@ -199,7 +199,7 @@ extension BufferedInputStream {
         return true
     }
 
-    @_versioned
+    @usableFromInline
     func ensure(count requested: Int) throws {
         guard used + requested > allocated else {
             return

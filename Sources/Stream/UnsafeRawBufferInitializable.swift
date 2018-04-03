@@ -21,7 +21,7 @@ extension String: UnsafeRawBufferInitializable {
 extension Array: UnsafeRawBufferInitializable where Element == UInt8 {}
 
 extension StreamReader {
-    @_inlineable
+    @inlinable
     public func peek<T>(count: Int, as type: T.Type) throws -> T
         where T: UnsafeRawBufferInitializable
     {
@@ -30,7 +30,7 @@ extension StreamReader {
         }
     }
 
-    @_inlineable
+    @inlinable
     public func read<T>(count: Int, as type: T.Type) throws -> T
         where T: UnsafeRawBufferInitializable
     {
@@ -39,7 +39,7 @@ extension StreamReader {
         }
     }
 
-    @_inlineable
+    @inlinable
     public func read<T: UnsafeRawBufferInitializable>(
         mode: PredicateMode,
         while predicate: (UInt8) -> Bool,
@@ -50,7 +50,7 @@ extension StreamReader {
         }
     }
 
-    @_inlineable
+    @inlinable
     public func readUntilEnd<T>(as type: T.Type) throws -> T
         where T: UnsafeRawBufferInitializable
     {
