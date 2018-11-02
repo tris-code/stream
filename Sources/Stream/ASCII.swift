@@ -11,6 +11,7 @@
 
 public extension UInt8 {
     static let whitespace = UInt8(ascii: " ")
+    static let quote = UInt8(ascii: "'")
     static let doubleQuote = UInt8(ascii: "\"")
     static let backslash = UInt8(ascii: "\\")
     static let cr = UInt8(ascii: "\r")
