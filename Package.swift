@@ -23,7 +23,8 @@ let package = Package(
             .branch("master"))
     ],
     targets: [
-        .target(name: "Stream"),
+        .target(
+            name: "Stream"),
         .testTarget(
             name: "StreamTests",
             dependencies: ["Stream", "Test"])
