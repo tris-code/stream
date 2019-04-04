@@ -2,16 +2,16 @@
 
 The package does a few things:
 1. Abstracts reading&writing from&to file|socket|anything (`buffer` + `size`)
-2. Implements [BufferedStream](https://github.com/tris-foundation/stream/blob/master/Sources/Stream/Library/BufferedInputStream.swift)
+2. Implements [BufferedStream](https://github.com/tris-code/stream/blob/master/Sources/Stream/Library/BufferedInputStream.swift)
 with various `reallocate` options
 3. Implements a lot of sugar like
-[StreamReader](https://github.com/tris-foundation/stream/blob/master/Sources/Stream/StreamReader.swift),
-[StreamWriter](https://github.com/tris-foundation/stream/blob/master/Sources/Stream/StreamWriter.swift)
+[StreamReader](https://github.com/tris-code/stream/blob/master/Sources/Stream/StreamReader.swift),
+[StreamWriter](https://github.com/tris-code/stream/blob/master/Sources/Stream/StreamWriter.swift)
 
 ## Package.swift
 
 ```swift
-.package(url: "https://github.com/tris-foundation/stream.git", .branch("master"))
+.package(url: "https://github.com/tris-code/stream.git", .branch("master"))
 ```
 
 ## Usage
@@ -30,5 +30,5 @@ let result = try stream.read(count: 10) { rawBufferPointer in
 
 ## See also
 
-[NetworkStream](https://github.com/tris-foundation/aio/blob/master/Sources/Network/NetworkStream/NetworkStream.swift)<br>
-[File+Stream](https://github.com/tris-foundation/aio/blob/master/Sources/File/File%2BStream.swift)<br>
+[NetworkStream](https://github.com/tris-code/aio/blob/master/Sources/Network/NetworkStream/NetworkStream.swift)<br>
+[File+Stream](https://github.com/tris-code/aio/blob/master/Sources/File/File%2BStream.swift)<br>
