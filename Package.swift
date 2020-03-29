@@ -7,7 +7,7 @@ let package = Package(
         .library(name: "Stream", targets: ["Stream"])
     ],
     dependencies: [
-        .package(path: "../Test")
+        .package(path: "../test")
     ],
     targets: [
         .target(
